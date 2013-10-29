@@ -1,4 +1,4 @@
-/*
+/* IME-USP
  * Evolutive Queens:
  *      Eight queens by the evolutive way
  *
@@ -8,12 +8,17 @@
  * Outubro de 2013
  */
 
-#include <iostream>
-#include "genetic.h"
+#ifndef SOLUTION_H
+#define SOLUTION_H
 
-using namespace std;
-
-int main(int argc, char* archv[])
+class Solution 
 {
-    //First let's to do for eight queens
-}
+private:
+    int n;
+
+public:
+    Solution();
+    ~Solution();
+};
+
+#endif // SOLUTION_H

@@ -13,10 +13,10 @@
 Genetic::Genetic(int nIn)
 {
     //Commom values
-    population = 100;
-    crossBest = 60;
-    crossNumberGood = 90;
-    mutation = 5;
+    population = 20;
+    crossBest = 12;
+    crossNumberGood = 18;
+    mutation = 2;
     
     n = nIn;
     matinPool = new Solution*[population];
@@ -40,12 +40,7 @@ void Genetic::solve()
     {
         // Sort the population
         mergeSort(0, (population-1), matinPool);
-
-        // Debug info
-        iterations++;
-        //matinPool[0]->printState();
-        //cout<< "Attacks: "<< matinPool[0]->attacks << endl;
-       
+        
         // Generate crossNumberGood sons from the bests
         for (int i = 0; i < crossNumberGood; i++)
             newPool[i] = matinPool[rand()%crossBest]->cross(matinPool[rand()%crossBest]);
@@ -65,6 +60,7 @@ void Genetic::solve()
             matinPool[i] = newPool[i];
         }
 
+        iterations++;
     }
 
     // Print the solution
@@ -75,6 +71,8 @@ void Genetic::solve()
     // Deletes
     for (int i = 0; i < population; i++)
         delete matinPool[i];
+    
+    delete newPool;
 }
 
 bool Genetic::hasSolution()

@@ -14,13 +14,15 @@ int main(int argc, char* archv[])
 {
     int n=8;
 
+    // If has two parameters, the second is n
     if(argc == 2)
         n  = atoi (archv[1]);
 
-    srand (time(NULL)); // Inicialize rand. Use includes of solution.h
+    srand (time(NULL));             // Inicialize rand. Use includes of solution.h
     Genetic* g = new Genetic(n);
-    g->solve();
+    g->solve();                     // Find some solution.
 
     // Deletes
     delete g;
 }
+

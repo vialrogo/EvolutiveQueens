@@ -16,9 +16,9 @@
 class Genetic
 {
 private:
-    int n, population, cross, mutation;
+    int n, population, crossBest, crossNumberGood, mutation;
     Solution** matinPool;
-    Solution* hasSolution();
+    bool hasSolution();
     void mergeSort(int start, int end, Solution** array);
     void merge(int start1, int end1, int start2, int end2, Solution** array);
 

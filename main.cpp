@@ -12,7 +12,12 @@
 
 int main(int argc, char* archv[])
 {
-    int n = 8; //For now only
+    int n=8;
+
+    if(argc == 2)
+        n  = atoi (archv[1]);
+
+    srand (time(NULL)); // Inicialize rand. Use includes of solution.h
     Genetic* g = new Genetic(n);
     g->solve();
 

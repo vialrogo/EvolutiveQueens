@@ -20,6 +20,8 @@ Solution::Solution(int nIn)
     
     for (int i = 0; i < n; i++)
         mutate();
+
+    evaluate();
 }
 
 Solution::~Solution()
@@ -35,6 +37,7 @@ void Solution::mutate()
     tmp = state[id1];
     state[id1] = state[id2];
     state[id2] = tmp;
+    evaluate();
 }
 
 Solution* Solution::cross(Solution* otherSolution)
@@ -63,6 +66,8 @@ Solution* Solution::cross(Solution* otherSolution)
         }
         idB++;
     }
+
+    output->evaluate();
 
     delete used;
     return output;
@@ -101,17 +106,13 @@ void Solution::printStateLine()
     cout<<endl;
 }
 
-int Solution::evaluate()
+void Solution::evaluate()
 {
     // A evaluation is the number of queens in attack
-    int attacksCount = 0;
-
+    attacks = 0;
     for (int i = 0; i < n; i++)
-        for (int j = 0; j < (n-i-1); j++)
+        for (int j = 1; j < (n-i); j++)
             if(state[i+j]==(state[i]+j) || state[i+j]==(state[i]-j))
-                attacksCount++;
-
-    attacks = attacksCount;
-    return attacks;
+                attacks++;
 }
 

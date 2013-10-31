@@ -32,7 +32,7 @@ public:
     void mutate();
     Solution* cross(Solution* otherSolution);
     void printState(bool arrayWay=false);
-    int evaluate();
+    void evaluate();
 };
 
 #endif // SOLUTION_H

@@ -14,7 +14,8 @@ Genetic::Genetic(int nIn)
 {
     //Commom values
     population = 100;
-    cross = 60;
+    crossBest = 60;
+    crossNumberGood = 90;
     mutation = 5;
     
     n = nIn;
@@ -28,31 +29,61 @@ Genetic::~Genetic()
 
 void Genetic::solve()
 {
+    int iterations=0;
+    Solution** newPool = new Solution*[population];
+
+    // Create random initial population
     for (int i = 0; i < population; i++)
         matinPool[i] = new Solution(n);
 
-    Solution* solution = hasSolution();
-
-    while(solution == 0)
+    while(!hasSolution())
     {
+        // Sort the population
         mergeSort(0, (population-1), matinPool);
-    }
-    
 
-    solution->printState();
+        // Debug info
+        iterations++;
+        //matinPool[0]->printState();
+        //cout<< "Attacks: "<< matinPool[0]->attacks << endl;
+       
+        // Generate crossNumberGood sons from the bests
+        for (int i = 0; i < crossNumberGood; i++)
+            newPool[i] = matinPool[rand()%crossBest]->cross(matinPool[rand()%crossBest]);
+       
+        // Generate (population - crossNumberGood) sons from the worsts
+        for (int i = crossNumberGood; i < population; i++)
+            newPool[i] = matinPool[rand()%(population-crossBest) + crossBest]->cross(matinPool[rand()%(population-crossBest) + crossBest]);
+        
+        // Mutate some of the population
+        for (int i = 0; i < mutation; i++)
+            newPool[rand()%population]->mutate();
+
+        // Remplace the old pool
+        for (int i = 0; i < population; i++)
+        {
+            delete matinPool[i];
+            matinPool[i] = newPool[i];
+        }
+
+    }
+
+    // Print the solution
+    mergeSort(0, (population-1), matinPool);
+    matinPool[0]->printState();
+    cout << endl << "Total Iterations: " << iterations <<endl;
 
     // Deletes
     for (int i = 0; i < population; i++)
         delete matinPool[i];
 }
 
-Solution* Genetic::hasSolution()
+bool Genetic::hasSolution()
 {
     for (int i = 0; i < population; i++)
-        if(matinPool[i]->evaluate() == 0 )
-            return matinPool[i];
+        if(matinPool[i]->attacks == 0 )
+            return true;
 
-    return 0;
+    return false;
 }
 
 void Genetic::mergeSort(int start, int end, Solution** array)
@@ -125,3 +156,4 @@ void Genetic::merge(int start1, int end1, int start2, int end2, Solution** array
     // Deletes
     delete temp;
 }
+

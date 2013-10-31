@@ -13,13 +13,19 @@
 
 #include "solution.h"
 
-class  Genetic
+class Genetic
 {
 private:
+    int n, population, cross, mutation;
+    Solution** matinPool;
+    Solution* hasSolution();
+    void mergeSort(int start, int end, Solution** array);
+    void merge(int start1, int end1, int start2, int end2, Solution** array);
 
 public:
-    Genetic();
+    Genetic(int nIn);
     ~Genetic();
+    void solve();
 };
 
 #endif // GENETIC_H

@@ -11,14 +11,28 @@
 #ifndef SOLUTION_H
 #define SOLUTION_H
 
+#include <stdlib.h> 
+#include <time.h> 
+#include <iostream>
+#include <math.h> 
+
+using namespace std;
+
 class Solution 
 {
 private:
     int n;
+    void printStateLine();
 
 public:
-    Solution();
+    int attacks;
+    int* state;
+    Solution(int nIn);
     ~Solution();
+    void mutate();
+    Solution* cross(Solution* otherSolution);
+    void printState(bool arrayWay=false);
+    int evaluate();
 };
 
 #endif // SOLUTION_H

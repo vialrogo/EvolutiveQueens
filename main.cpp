@@ -8,12 +8,14 @@
  * Outubro de 2013
  */
 
-#include <iostream>
 #include "genetic.h"
-
-using namespace std;
 
 int main(int argc, char* archv[])
 {
-    //First let's to do for eight queens
+    int n = 8; //For now only
+    Genetic* g = new Genetic(n);
+    g->solve();
+
+    // Deletes
+    delete g;
 }
